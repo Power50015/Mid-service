@@ -8,15 +8,16 @@
           </h1>
           <div class="columns is-centered">
             <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-              <form class="box" @submit.prevent="">
+              <form class="box" @submit.prevent="loginUser">
                 <div class="field">
-                  <label for="" class="label">البريد الإلكترونى</label>
+                  <label for="email" class="label">البريد الإلكترونى</label>
                   <div class="control has-icons-left">
                     <input
                       type="email"
                       placeholder="e.g. bobsmith@gmail.com"
                       class="input"
                       required
+                      v-model="email"
                     />
                     <span class="icon is-small is-left">
                       <i class="fa fa-envelope"></i>
@@ -24,13 +25,14 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label for="" class="label">كلمه السر</label>
+                  <label for="password" class="label">كلمه السر</label>
                   <div class="control has-icons-left">
                     <input
                       type="password"
                       placeholder="*******"
                       class="input"
                       required
+                      v-model="password"
                     />
                     <span class="icon is-small is-left">
                       <i class="fa fa-lock"></i>
@@ -57,4 +59,22 @@
   </div>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts" setup>
+import { useAuthStore } from "@/stores/auth";
+import { ref } from "@vue/reactivity";
+import { useRouter } from "vue-router";
+
+const email = ref<string>("");
+const password = ref<string>("");
+
+const router = useRouter();
+const auth = useAuthStore();
+
+function loginUser() {
+  auth.login(email.value, password.value);
+  email.value = "";
+  password.value = "";
+
+  router.push("/");
+}
+</script>

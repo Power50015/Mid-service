@@ -27,14 +27,23 @@
                 class="nav-link mx-4 button is-primary"
                 aria-current="page"
                 to="/register"
+                v-if="!auth.isLogin"
                 ><strong>عمل حساب</strong>
               </router-link>
               <router-link
                 class="button is-light"
                 aria-current="page"
                 to="/login"
+                v-if="!auth.isLogin"
                 >تسجيل الدخول</router-link
               >
+              <button
+                class="nav-link mx-4 button is-primary"
+                aria-current="page"
+                v-if="auth.isLogin"
+                @click="auth.logout"
+                ><strong>تسجيل خروج</strong>
+              </button>
             </div>
           </div>
         </div>
@@ -43,9 +52,10 @@
   </nav>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { HtmlHTMLAttributes } from "@vue/runtime-dom";
-
+import { useAuthStore } from "@/stores/auth";
+const auth = useAuthStore();
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(

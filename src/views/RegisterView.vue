@@ -4,25 +4,28 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="has-text-centered is-size-1 pb-6 is-block">
-           عمل حساب مستشفى جديد
+            عمل حساب مستشفى جديد
           </h1>
           <div class="columns is-centered">
             <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-              <form class="box" @submit.prevent="">
+              <form class="box" @submit.prevent="saveUser">
                 <div class="field">
-                  <label for="" class="label">أسم المستشفى</label>
+                  <label for="name" class="label">أسم المستشفى</label>
                   <div class="control has-icons-left">
-                    <input type="text" class="input" required />
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-envelope"></i>
-                    </span>
+                    <input
+                      type="text"
+                      class="input"
+                      id="name"
+                      required
+                      v-model="name"
+                    />
                   </div>
                 </div>
                 <div class="field">
-                  <label for="" class="label">المنطقه</label>
+                  <label for="area" class="label">المنطقه</label>
                   <div class="control has-icons-left">
                     <div class="select is-primary is-full">
-                      <select class="is-full">
+                      <select class="is-full" v-model="area" id="area">
                         <option>القاهره</option>
                         <option>الإسكندريه</option>
                         <option>الجيزة</option>
@@ -33,40 +36,41 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label for="" class="label">العنوان تفصيلا</label>
+                  <label for="address" class="label">العنوان تفصيلا</label>
                   <div class="control has-icons-left">
-                    <input type="text" class="input" required />
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-envelope"></i>
-                    </span>
+                    <input
+                      type="text"
+                      class="input"
+                      required
+                      v-model="address"
+                      id="address"
+                    />
                   </div>
                 </div>
                 <div class="field">
-                  <label for="" class="label">البريد الإلكترونى</label>
+                  <label for="email" class="label">البريد الإلكترونى</label>
                   <div class="control has-icons-left">
                     <input
                       type="email"
                       placeholder="e.g. bobsmith@gmail.com"
                       class="input"
                       required
+                      id="email"
+                      v-model="email"
                     />
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-envelope"></i>
-                    </span>
                   </div>
                 </div>
                 <div class="field">
-                  <label for="" class="label">كلمه السر</label>
+                  <label for="password" class="label">كلمه السر</label>
                   <div class="control has-icons-left">
                     <input
                       type="password"
                       placeholder="*******"
                       class="input"
+                      id="password"
+                      v-model="password"
                       required
                     />
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-lock"></i>
-                    </span>
                   </div>
                 </div>
                 <div class="field">
@@ -88,4 +92,34 @@
     </section>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useAuthStore } from "@/stores/auth";
+import { ref } from "@vue/reactivity";
+import { useRouter } from "vue-router";
+
+const name = ref<string>("");
+const email = ref<string>("");
+const area = ref<string>("القاهره");
+const address = ref<string>("");
+const password = ref<string>("");
+
+const router = useRouter();
+const auth = useAuthStore();
+
+function saveUser() {
+  auth.addHostpital(
+    name.value,
+    address.value,
+    area.value,
+    email.value,
+    password.value
+  );
+  name.value = "";
+  address.value = "";
+  area.value = "القاهره";
+  email.value = "";
+  password.value = "";
+
+  router.push("/");
+}
+</script>
