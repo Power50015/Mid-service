@@ -75,6 +75,6 @@ function loginUser() {
   email.value = "";
   password.value = "";
 
-  router.push("/");
+  router.push("/dashbord");
 }
 </script>

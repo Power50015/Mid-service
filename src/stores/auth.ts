@@ -183,29 +183,51 @@ export const useAuthStore = defineStore({
       });
     },
     async editData(obj: any) {
-      
-      updateDoc(doc(db, "hospitals", this.userId), obj);
-
-      const q = query(
-        collection(db, "hospitals"),
-        where("email", "==", this.email)
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        const auth = useAuthStore();
-        this.nurseries = doc.data().nurseries;
-        this.isolation = doc.data().isolation;
-        this.room = doc.data().room;
-        this.intensive = doc.data().intensive;
-        this.APositive = doc.data().APositive;
-        this.ANegative = doc.data().ANegative;
-        this.BPositive = doc.data().BPositive;
-        this.BNegative = doc.data().BNegative;
-        this.ABPositive = doc.data().ABPositive;
-        this.ABNegative = doc.data().ABNegative;
-        this.OPositive = doc.data().OPositive;
-        this.ONegative = doc.data().ONegative;
+      updateDoc(doc(db, "hospitals", this.userId), obj).then(async () => {
+        this.editDataLocal(obj);
       });
+    },
+    editDataLocal(obj: any) {
+      switch (true) {
+        case obj.hasOwnProperty("nurseries"):
+          this.nurseries = Number(obj.nurseries);
+          break;
+        case obj.hasOwnProperty("isolation"):
+          this.isolation = Number(obj.isolation);
+          break;
+        case obj.hasOwnProperty("room"):
+          this.room = Number(obj.room);
+          break;
+        case obj.hasOwnProperty("intensive"):
+          this.intensive = Number(obj.intensive);
+          break;
+        case obj.hasOwnProperty("APositive"):
+          this.APositive = Number(obj.APositive);
+          break;
+        case obj.hasOwnProperty("ANegative"):
+          this.ANegative = Number(obj.ANegative);
+          break;
+        case obj.hasOwnProperty("BPositive"):
+          this.BPositive = Number(obj.BPositive);
+          break;
+        case obj.hasOwnProperty("BNegative"):
+          this.BNegative = Number(obj.BNegative);
+          break;
+        case obj.hasOwnProperty("ABPositive"):
+          this.ABPositive = Number(obj.ABPositive);
+          break;
+        case obj.hasOwnProperty("ABNegative"):
+          this.ABNegative = Number(obj.ABNegative);
+          break;
+        case obj.hasOwnProperty("OPositive"):
+          this.OPositive = Number(obj.OPositive);
+          break;
+        case obj.hasOwnProperty("ONegative"):
+          this.ONegative = Number(obj.ONegative);
+          break;
+        default:
+          break;
+      }
     },
   },
 });

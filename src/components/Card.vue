@@ -27,15 +27,17 @@ const props = defineProps({
 function increase() {
   const number = Number(props.count) + 1;
   var myobj = JSON.parse('{ "' + props.field + '":' + number + "}");
+  // console.log(myobj);
+  
   AuthData.editData(myobj);
-  alert("تم الإضافه")
+  // alert("تم الإضافه")
 }
 function decrease() {
   if (Number(props.count) > 0) {
     const number = Number(props.count) - 1;
     var myobj = JSON.parse('{ "' + props.field + '":' + number + "}");
     AuthData.editData(myobj);
-    alert("تم الإنقاص")
+    // alert("تم الإنقاص")
   }
 }
 </script>
