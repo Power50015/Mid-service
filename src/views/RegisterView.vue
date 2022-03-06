@@ -120,6 +120,6 @@ function saveUser() {
   email.value = "";
   password.value = "";
 
-  router.push("/dashbord");
+  router.push("/dashborad");
 }
 </script>
