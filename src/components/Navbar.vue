@@ -2,8 +2,11 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <router-link class="navbar-item" aria-current="page" to="/">
-          Med Service
+        <router-link class="navbar-item" aria-current="page" to="/" v-if="!auth.isLogin">
+          <img src="@/assets/logo.png" alt="logo" width="70">
+        </router-link>
+        <router-link class="navbar-item" aria-current="page" to="/dashborad" v-if="auth.isLogin">
+          <img src="@/assets/logo.png" alt="logo" width="70">
         </router-link>
 
         <a
@@ -83,5 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 <style scoped>
 .navbar-end {
   width: 100%;
+}
+.navbar-item img{
+  max-height: none !important;
 }
 </style>

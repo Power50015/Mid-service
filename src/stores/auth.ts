@@ -18,6 +18,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { async } from "@firebase/util";
 const auth = getAuth();
 const db = getFirestore();
 
@@ -31,6 +32,7 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const auth = useAuthStore();
+      auth.userId = doc.id;
       auth.isLogin = true;
       auth.name = doc.data().name;
       auth.email = doc.data().email;
@@ -55,6 +57,7 @@ export const useAuthStore = defineStore({
   id: "auth",
   state: () => ({
     isLogin: false,
+    userId: "",
     name: "",
     email: "",
     nurseries: 0,
@@ -100,7 +103,8 @@ export const useAuthStore = defineStore({
             ABNegative: 0,
             OPositive: 0,
             ONegative: 0,
-          }).then(() => {
+          }).then((user) => {
+            this.userId = user.id;
             this.isLogin = true;
             this.name = name;
             this.email = email;
@@ -149,6 +153,7 @@ export const useAuthStore = defineStore({
             this.ABNegative = doc.data().ABNegative;
             this.OPositive = doc.data().OPositive;
             this.ONegative = doc.data().ONegative;
+            this.userId = doc.id;
           });
         })
         .catch((error) => {
@@ -175,6 +180,31 @@ export const useAuthStore = defineStore({
         this.ABNegative = 0;
         this.OPositive = 0;
         this.ONegative = 0;
+      });
+    },
+    async editData(obj: any) {
+      
+      updateDoc(doc(db, "hospitals", this.userId), obj);
+
+      const q = query(
+        collection(db, "hospitals"),
+        where("email", "==", this.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const auth = useAuthStore();
+        this.nurseries = doc.data().nurseries;
+        this.isolation = doc.data().isolation;
+        this.room = doc.data().room;
+        this.intensive = doc.data().intensive;
+        this.APositive = doc.data().APositive;
+        this.ANegative = doc.data().ANegative;
+        this.BPositive = doc.data().BPositive;
+        this.BNegative = doc.data().BNegative;
+        this.ABPositive = doc.data().ABPositive;
+        this.ABNegative = doc.data().ABNegative;
+        this.OPositive = doc.data().OPositive;
+        this.ONegative = doc.data().ONegative;
       });
     },
   },
