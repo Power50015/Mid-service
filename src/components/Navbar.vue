@@ -2,11 +2,21 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <router-link class="navbar-item" aria-current="page" to="/" v-if="!auth.isLogin">
-          <img src="@/assets/logo.png" alt="logo" width="70">
+        <router-link
+          class="navbar-item"
+          aria-current="page"
+          to="/"
+          v-if="!auth.isLogin"
+        >
+          <img src="@/assets/logo.png" alt="logo" width="70" />
         </router-link>
-        <router-link class="navbar-item" aria-current="page" to="/dashborad" v-if="auth.isLogin">
-          <img src="@/assets/logo.png" alt="logo" width="70">
+        <router-link
+          class="navbar-item"
+          aria-current="page"
+          to="/dashborad"
+          v-if="auth.isLogin"
+        >
+          <img src="@/assets/logo.png" alt="logo" width="70" />
         </router-link>
 
         <a
@@ -40,12 +50,37 @@
                 v-if="!auth.isLogin"
                 >تسجيل الدخول</router-link
               >
+              <router-link
+                class="button is-light"
+                aria-current="page"
+                to="/dashborad"
+                v-if="auth.isLogin"
+                >الخدمات</router-link
+              >
+              <router-link
+                class="button is-light"
+                aria-current="page"
+                to="/blood"
+                v-if="auth.isLogin"
+                >فصائل الدم</router-link
+              >
+              <router-link
+                class="nav-profile"
+                aria-current="page"
+                to="/"
+                v-if="auth.isLogin"
+              >
+                <img :src="auth.image" class="nav-profile-image" />
+                <span>{{ auth.name }}</span>
+              </router-link>
+
               <button
                 class="nav-link mx-4 button is-primary"
                 aria-current="page"
                 v-if="auth.isLogin"
                 @click="auth.logout"
-                ><strong>تسجيل خروج</strong>
+              >
+                <strong>تسجيل خروج</strong>
               </button>
             </div>
           </div>
@@ -87,7 +122,17 @@ document.addEventListener("DOMContentLoaded", () => {
 .navbar-end {
   width: 100%;
 }
-.navbar-item img{
+.navbar-item img {
   max-height: none !important;
+}
+
+.nav-profile {
+  display: flex;
+  align-items: center;
+}
+.nav-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 </style>

@@ -18,9 +18,17 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { async } from "@firebase/util";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  uploadString,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
 const auth = getAuth();
 const db = getFirestore();
+const storage = getStorage();
 
 // wait until auth is ready
 const unsub = await onAuthStateChanged(auth, async (user) => {
@@ -36,6 +44,8 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
       auth.isLogin = true;
       auth.name = doc.data().name;
       auth.email = doc.data().email;
+      auth.map = doc.data().map;
+      auth.image = doc.data().image;
       auth.nurseries = doc.data().nurseries;
       auth.isolation = doc.data().isolation;
       auth.room = doc.data().room;
@@ -60,6 +70,8 @@ export const useAuthStore = defineStore({
     userId: "",
     name: "",
     email: "",
+    map: "",
+    image: "",
     nurseries: 0,
     isolation: 0,
     room: 0,
@@ -77,9 +89,10 @@ export const useAuthStore = defineStore({
     addHostpital(
       name: string,
       address: string,
+      map: string,
       area: string,
       email: string,
-      password: string
+      password: string, image: string
     ) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -90,7 +103,9 @@ export const useAuthStore = defineStore({
             name: name,
             email: email,
             address: address,
+            map: map,
             area: area,
+            image: image,
             nurseries: 0,
             isolation: 0,
             room: 0,
@@ -108,6 +123,8 @@ export const useAuthStore = defineStore({
             this.isLogin = true;
             this.name = name;
             this.email = email;
+            this.map = map;
+            this.image = image;
             this.nurseries = 0;
             this.isolation = 0;
             this.room = 0;
