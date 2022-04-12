@@ -1,88 +1,101 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <router-link
-          class="navbar-item"
-          aria-current="page"
-          to="/"
-          v-if="!auth.isLogin"
-        >
-          <img src="@/assets/logo.png" alt="logo" width="70" />
-        </router-link>
+    <div class="navbar-brand">
+      <router-link
+        class="navbar-item"
+        aria-current="page"
+        to="/"
+        v-if="!auth.isLogin"
+      >
+        <img src="@/assets/logo.png" width="70" height="28" />
+      </router-link>
+      <router-link
+        class="navbar-item"
+        aria-current="page"
+        to="/dashborad"
+        v-if="auth.isLogin"
+      >
+        <img src="@/assets/logo.png" width="70" height="28" />
+      </router-link>
+
+      <a
+        role="button"
+        class="navbar-burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="navbarBasicExample"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
         <router-link
           class="navbar-item"
           aria-current="page"
           to="/dashborad"
           v-if="auth.isLogin"
+          >الخدمات</router-link
         >
-          <img src="@/assets/logo.png" alt="logo" width="70" />
-        </router-link>
-
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
+        <router-link
+          class="navbar-item"
+          aria-current="page"
+          to="/dashborad"
+          v-if="auth.isLogin"
+          >فصائل الدم</router-link
         >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+        <router-link
+          class="navbar-item"
+          aria-current="page"
+          to="/dashborad"
+          v-if="auth.isLogin"
+          >الحجوزات</router-link
+        >
+        
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <router-link
-                class="nav-link mx-4 button is-primary"
-                aria-current="page"
-                to="/register"
-                v-if="!auth.isLogin"
-                ><strong>عمل حساب</strong>
-              </router-link>
-              <router-link
-                class="button is-light"
-                aria-current="page"
-                to="/login"
-                v-if="!auth.isLogin"
-                >تسجيل الدخول</router-link
-              >
-              <router-link
-                class="button is-light"
-                aria-current="page"
-                to="/dashborad"
-                v-if="auth.isLogin"
-                >الخدمات</router-link
-              >
-              <router-link
-                class="button is-light"
-                aria-current="page"
-                to="/blood"
-                v-if="auth.isLogin"
-                >فصائل الدم</router-link
-              >
-              <router-link
-                class="nav-profile"
-                aria-current="page"
-                to="/profile"
-                v-if="auth.isLogin"
-              >
-                <img :src="auth.image" class="nav-profile-image" />
-                <span>{{ auth.name }}</span>
-              </router-link>
-
-              <button
-                class="nav-link mx-4 button is-primary"
-                aria-current="page"
-                v-if="auth.isLogin"
-                @click="auth.logout"
-              >
-                <strong>تسجيل خروج</strong>
-              </button>
-            </div>
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable" v-if="auth.isLogin">
+          <router-link
+            class="navbar-item navbar-link"
+            aria-current="page"
+            to="/profile"
+            v-if="auth.isLogin"
+          >
+            <img :src="auth.image" class="nav-profile-image" />
+            <span>{{ auth.name }}</span>
+          </router-link>
+          <div class="navbar-dropdown">
+            <button
+              class="nav-link mx-4 button is-primary navbar-item"
+              aria-current="page"
+              v-if="auth.isLogin"
+              @click="auth.logout"
+            >
+              <strong>تسجيل خروج</strong>
+            </button>
+          </div>
+        </div>
+        <div class="navbar-item">
+          
+          <div class="buttons">
+            <router-link
+              class="nav-link mx-4 button is-primary"
+              aria-current="page"
+              to="/register"
+              v-if="!auth.isLogin"
+              ><strong>عمل حساب</strong>
+            </router-link>
+            <router-link
+              class="button is-light"
+              aria-current="page"
+              to="/login"
+              v-if="!auth.isLogin"
+              >تسجيل الدخول</router-link
+            >
           </div>
         </div>
       </div>
@@ -134,5 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+}
+.navbar-dropdown {
+  z-index: 99999 !important;
+  width: 220px;
 }
 </style>
