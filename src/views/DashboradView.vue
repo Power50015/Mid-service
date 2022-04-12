@@ -5,24 +5,28 @@
         field="nurseries"
         title="حضانات"
         :count="AuthData.nurseries"
+        img-data = "baby-room.jpg"
         color-class="has-background-dark"
       />
       <Card
         field="isolation"
-        title="غرفه عزل"
+        title="غرفه عزل كرونا"
         :count="AuthData.isolation"
+        img-data = "covid-19.jpg"
         color-class="has-background-primary	"
       />
       <Card
         field="room"
         title="غرفه عاديه"
         :count="AuthData.room"
+        img-data = "hospital-room.jpg"
         color-class="has-background-link"
       />
       <Card
         field="intensive"
         title="عنايه مركزه"
         :count="AuthData.intensive"
+        img-data = "intensive-care.jpg"
         color-class="has-background-info"
       />
     </div>

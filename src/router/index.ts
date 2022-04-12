@@ -28,6 +28,11 @@ const router = createRouter({
       name: "dashborad",
       component: () => import("../views/DashboradView.vue"),
     },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("../views/Profileview.vue"),
+    },
   ],
 });
 

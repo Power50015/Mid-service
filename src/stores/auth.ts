@@ -45,6 +45,8 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
       auth.name = doc.data().name;
       auth.email = doc.data().email;
       auth.map = doc.data().map;
+      auth.address = doc.data().address;
+      auth.area = doc.data().area;
       auth.image = doc.data().image;
       auth.nurseries = doc.data().nurseries;
       auth.isolation = doc.data().isolation;
@@ -71,6 +73,8 @@ export const useAuthStore = defineStore({
     name: "",
     email: "",
     map: "",
+    area: "",
+    address: "",
     image: "",
     nurseries: 0,
     isolation: 0,
@@ -92,7 +96,8 @@ export const useAuthStore = defineStore({
       map: string,
       area: string,
       email: string,
-      password: string, image: string
+      password: string,
+      image: string
     ) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -123,7 +128,9 @@ export const useAuthStore = defineStore({
             this.isLogin = true;
             this.name = name;
             this.email = email;
+            this.address = address;
             this.map = map;
+            this.area = area;
             this.image = image;
             this.nurseries = 0;
             this.isolation = 0;
@@ -158,6 +165,9 @@ export const useAuthStore = defineStore({
             this.isLogin = true;
             this.name = doc.data().name;
             this.email = doc.data().email;
+            this.map = doc.data().map;
+            this.area = doc.data().area;
+            this.address = doc.data().address;
             this.nurseries = doc.data().nurseries;
             this.isolation = doc.data().isolation;
             this.room = doc.data().room;
@@ -185,6 +195,9 @@ export const useAuthStore = defineStore({
         this.isLogin = false;
         this.name = "";
         this.email = "";
+        this.area = "";
+        this.address = "";
+        this.map = "";
         this.nurseries = 0;
         this.isolation = 0;
         this.room = 0;
@@ -245,6 +258,27 @@ export const useAuthStore = defineStore({
         default:
           break;
       }
+    },
+    async editHostpital(
+      name: string,
+      address: string,
+      map: string,
+      area: string,
+      image: string
+    ) {
+      updateDoc(doc(db, "hospitals", this.userId), {
+        name: name,
+        address: address,
+        map: map,
+        area: area,
+        image: image,
+      }).then(async () => {
+        this.name = name;
+        this.address = address;
+        this.map = map;
+        this.area = area;
+        this.image = image;
+      });
     },
   },
 });

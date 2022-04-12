@@ -67,7 +67,7 @@
               <router-link
                 class="nav-profile"
                 aria-current="page"
-                to="/"
+                to="/profile"
                 v-if="auth.isLogin"
               >
                 <img :src="auth.image" class="nav-profile-image" />
