@@ -33,13 +33,13 @@ const storage = getStorage();
 // wait until auth is ready
 const unsub = await onAuthStateChanged(auth, async (user) => {
   if (user) {
+    const auth = useAuthStore();
     const q = query(
       collection(db, "hospitals"),
       where("email", "==", user.email)
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      const auth = useAuthStore();
       auth.userId = doc.id;
       auth.isLogin = true;
       auth.name = doc.data().name;
@@ -61,6 +61,7 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
       auth.OPositive = doc.data().OPositive;
       auth.ONegative = doc.data().ONegative;
     });
+    auth.featchReservations();
   }
   unsub();
 });
@@ -88,6 +89,7 @@ export const useAuthStore = defineStore({
     ABNegative: 0,
     OPositive: 0,
     ONegative: 0,
+    reservations: [],
   }),
   actions: {
     addHostpital(
@@ -278,6 +280,26 @@ export const useAuthStore = defineStore({
         this.map = map;
         this.area = area;
         this.image = image;
+      });
+    },
+    async featchReservations() {
+      this.reservations = [];
+      const q = query(
+        collection(db, "reservation"),
+        where("hospital", "==", this.email)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        this.reservations.push({ id: doc.id, ...doc.data() });
+      });
+    },
+    editReservations(id: any) {
+      updateDoc(doc(db, "reservation", id), {
+        state: 1,
+      }).then(() => {
+        this.featchReservations();
       });
     },
   },

@@ -43,14 +43,14 @@
         <router-link
           class="navbar-item"
           aria-current="page"
-          to="/dashborad"
+          to="/blood"
           v-if="auth.isLogin"
           >فصائل الدم</router-link
         >
         <router-link
           class="navbar-item"
           aria-current="page"
-          to="/dashborad"
+          to="/reservation"
           v-if="auth.isLogin"
           >الحجوزات</router-link
         >
@@ -58,7 +58,7 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable" v-if="auth.isLogin">
+        <!-- <div class="navbar-item has-dropdown is-hoverable" v-if="auth.isLogin">
           <router-link
             class="navbar-item navbar-link"
             aria-current="page"
@@ -78,9 +78,26 @@
               <strong>تسجيل خروج</strong>
             </button>
           </div>
-        </div>
+        </div> -->
+        
         <div class="navbar-item">
-          
+          <router-link
+            class="navbar-item"
+            aria-current="page"
+            to="/profile"
+            v-if="auth.isLogin"
+          >
+            <img :src="auth.image" class="nav-profile-image" />
+            <span>{{ auth.name }}</span>
+          </router-link>
+          <button
+              class="nav-link mx-4 button is-primary navbar-item"
+              aria-current="page"
+              v-if="auth.isLogin"
+              @click="auth.logout"
+            >
+              <strong>تسجيل خروج</strong>
+            </button>
           <div class="buttons">
             <router-link
               class="nav-link mx-4 button is-primary"
