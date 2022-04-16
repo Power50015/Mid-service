@@ -2,58 +2,58 @@
   <div class="container">
     <div class="columns is-12 is-variable">
       <Card
-        field="APositive"
+        field="apositive"
         title="فصيله دم A+"
-        :count="AuthData.APositive"
+        :count="AuthData.apositive"
         color-class="has-background-success"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="ANegative"
+        field="anegative"
         title="فصيله دم A-"
-        :count="AuthData.ANegative"
+        :count="AuthData.anegative"
         color-class="has-background-grey"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="BPositive"
+        field="bpositive"
         title="فصيله دم B+"
-        :count="AuthData.BPositive"
+        :count="AuthData.bpositive"
         color-class="has-background-danger"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="BNegative"
+        field="bnegative"
         title="فصيله دم B-"
-        :count="AuthData.BNegative"
+        :count="AuthData.bnegative"
         color-class="has-background-primary-dark"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="ABPositive"
+        field="abpositive"
         title="فصيله دم AB+"
-        :count="AuthData.ABPositive"
+        :count="AuthData.abpositive"
         color-class="has-background-link-dark"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="ABNegative"
+        field="abnegative"
         title="فصيله دم AB-"
-        :count="AuthData.ABNegative"
+        :count="AuthData.abnegative"
         color-class="has-background-info-dark"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="OPositive"
+        field="opositive"
         title="فصيله دم O+"
-        :count="AuthData.OPositive"
+        :count="AuthData.opositive"
         color-class="has-background-success-dark"
         img-data = "blood-types.jpg"
       />
       <Card
-        field="ONegative"
+        field="onegative"
         title="فصيله دم O-"
-        :count="AuthData.ONegative"
+        :count="AuthData.onegative"
         color-class="has-background-danger-dark"
         img-data = "blood-types.jpg"
       />

@@ -39,7 +39,7 @@ const getImageUrl = (name) => {
 function increase() {
   const number = Number(props.count) + 1;
   var myobj = JSON.parse('{ "' + props.field + '":' + number + "}");
-  // console.log(myobj);
+  console.log(myobj);
 
   AuthData.editData(myobj);
   // alert("تم الإضافه")

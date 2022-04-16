@@ -52,14 +52,14 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
       auth.isolation = doc.data().isolation;
       auth.room = doc.data().room;
       auth.intensive = doc.data().intensive;
-      auth.APositive = doc.data().APositive;
-      auth.ANegative = doc.data().ANegative;
-      auth.BPositive = doc.data().BPositive;
-      auth.BNegative = doc.data().BNegative;
-      auth.ABPositive = doc.data().ABPositive;
-      auth.ABNegative = doc.data().ABNegative;
-      auth.OPositive = doc.data().OPositive;
-      auth.ONegative = doc.data().ONegative;
+      auth.apositive = doc.data().apositive;
+      auth.anegative = doc.data().anegative;
+      auth.bpositive = doc.data().bpositive;
+      auth.bnegative = doc.data().bnegative;
+      auth.abpositive = doc.data().abpositive;
+      auth.abnegative = doc.data().abnegative;
+      auth.opositive = doc.data().opositive;
+      auth.onegative = doc.data().onegative;
     });
     auth.featchReservations();
   }
@@ -81,14 +81,14 @@ export const useAuthStore = defineStore({
     isolation: 0,
     room: 0,
     intensive: 0,
-    APositive: 0,
-    ANegative: 0,
-    BPositive: 0,
-    BNegative: 0,
-    ABPositive: 0,
-    ABNegative: 0,
-    OPositive: 0,
-    ONegative: 0,
+    apositive: 0,
+    anegative: 0,
+    bpositive: 0,
+    bnegative: 0,
+    abpositive: 0,
+    abnegative: 0,
+    opositive: 0,
+    onegative: 0,
     reservations: [],
   }),
   actions: {
@@ -117,14 +117,14 @@ export const useAuthStore = defineStore({
             isolation: 0,
             room: 0,
             intensive: 0,
-            APositive: 0,
-            ANegative: 0,
-            BPositive: 0,
-            BNegative: 0,
-            ABPositive: 0,
-            ABNegative: 0,
-            OPositive: 0,
-            ONegative: 0,
+            apositive: 0,
+            anegative: 0,
+            bpositive: 0,
+            bnegative: 0,
+            abpositive: 0,
+            abnegative: 0,
+            opositive: 0,
+            onegative: 0,
           }).then((user) => {
             this.userId = user.id;
             this.isLogin = true;
@@ -138,14 +138,14 @@ export const useAuthStore = defineStore({
             this.isolation = 0;
             this.room = 0;
             this.intensive = 0;
-            this.APositive = 0;
-            this.ANegative = 0;
-            this.BPositive = 0;
-            this.BNegative = 0;
-            this.ABPositive = 0;
-            this.ABNegative = 0;
-            this.OPositive = 0;
-            this.ONegative = 0;
+            this.apositive = 0;
+            this.anegative = 0;
+            this.bpositive = 0;
+            this.bnegative = 0;
+            this.abpositive = 0;
+            this.abnegative = 0;
+            this.opositive = 0;
+            this.onegative = 0;
           });
         })
         .catch((error) => {
@@ -174,14 +174,14 @@ export const useAuthStore = defineStore({
             this.isolation = doc.data().isolation;
             this.room = doc.data().room;
             this.intensive = doc.data().intensive;
-            this.APositive = doc.data().APositive;
-            this.ANegative = doc.data().ANegative;
-            this.BPositive = doc.data().BPositive;
-            this.BNegative = doc.data().BNegative;
-            this.ABPositive = doc.data().ABPositive;
-            this.ABNegative = doc.data().ABNegative;
-            this.OPositive = doc.data().OPositive;
-            this.ONegative = doc.data().ONegative;
+            this.apositive = doc.data().apositive;
+            this.anegative = doc.data().anegative;
+            this.bpositive = doc.data().bpositive;
+            this.bnegative = doc.data().bnegative;
+            this.abpositive = doc.data().abpositive;
+            this.abnegative = doc.data().abnegative;
+            this.opositive = doc.data().opositive;
+            this.onegative = doc.data().onegative;
             this.userId = doc.id;
           });
         })
@@ -204,14 +204,14 @@ export const useAuthStore = defineStore({
         this.isolation = 0;
         this.room = 0;
         this.intensive = 0;
-        this.APositive = 0;
-        this.ANegative = 0;
-        this.BPositive = 0;
-        this.BNegative = 0;
-        this.ABPositive = 0;
-        this.ABNegative = 0;
-        this.OPositive = 0;
-        this.ONegative = 0;
+        this.apositive = 0;
+        this.anegative = 0;
+        this.bpositive = 0;
+        this.bnegative = 0;
+        this.abpositive = 0;
+        this.abnegative = 0;
+        this.opositive = 0;
+        this.onegative = 0;
       });
     },
     async editData(obj: any) {
@@ -233,29 +233,29 @@ export const useAuthStore = defineStore({
         case obj.hasOwnProperty("intensive"):
           this.intensive = Number(obj.intensive);
           break;
-        case obj.hasOwnProperty("APositive"):
-          this.APositive = Number(obj.APositive);
+        case obj.hasOwnProperty("apositive"):
+          this.apositive = Number(obj.apositive);
           break;
-        case obj.hasOwnProperty("ANegative"):
-          this.ANegative = Number(obj.ANegative);
+        case obj.hasOwnProperty("anegative"):
+          this.anegative = Number(obj.anegative);
           break;
-        case obj.hasOwnProperty("BPositive"):
-          this.BPositive = Number(obj.BPositive);
+        case obj.hasOwnProperty("bpositive"):
+          this.bpositive = Number(obj.bpositive);
           break;
-        case obj.hasOwnProperty("BNegative"):
-          this.BNegative = Number(obj.BNegative);
+        case obj.hasOwnProperty("bnegative"):
+          this.bnegative = Number(obj.bnegative);
           break;
-        case obj.hasOwnProperty("ABPositive"):
-          this.ABPositive = Number(obj.ABPositive);
+        case obj.hasOwnProperty("abpositive"):
+          this.abpositive = Number(obj.abpositive);
           break;
-        case obj.hasOwnProperty("ABNegative"):
-          this.ABNegative = Number(obj.ABNegative);
+        case obj.hasOwnProperty("abnegative"):
+          this.abnegative = Number(obj.abnegative);
           break;
-        case obj.hasOwnProperty("OPositive"):
-          this.OPositive = Number(obj.OPositive);
+        case obj.hasOwnProperty("opositive"):
+          this.opositive = Number(obj.opositive);
           break;
-        case obj.hasOwnProperty("ONegative"):
-          this.ONegative = Number(obj.ONegative);
+        case obj.hasOwnProperty("onegative"):
+          this.onegative = Number(obj.onegative);
           break;
         default:
           break;
