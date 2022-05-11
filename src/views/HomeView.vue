@@ -6,8 +6,8 @@
       >
         سجل كامستشفى و استفد بموقعنا فى الدعايا
       </h1>
-      <router-link class="button" aria-current="page" to="/login">
-        <strong>عمل حساب</strong>
+      <router-link class="button" aria-current="page" to="/login-admin">
+        <strong>الدخول كأدمن</strong>
       </router-link>
     </div>
   </header>

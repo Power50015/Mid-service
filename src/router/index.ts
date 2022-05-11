@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import("../views/LoginView.vue"),
     },
     {
+      path: "/login-admin",
+      name: "login-admin",
+      component: () => import("../views/AdminLoginView.vue"),
+    },
+    {
       path: "/register",
       name: "register",
       component: () => import("../views/RegisterView.vue"),
@@ -27,6 +32,11 @@ const router = createRouter({
       path: "/dashborad",
       name: "dashborad",
       component: () => import("../views/DashboradView.vue"),
+    },
+    {
+      path: "/admin-dashborad",
+      name: "admin-dashborad",
+      component: () => import("../views/AdminDashbord.vue"),
     },
     {
       path: "/profile",

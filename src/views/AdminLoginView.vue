@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="has-text-centered is-size-1 pb-6 is-block">
-            تسجيل الدخول للمستشفى
+            تسجيل الدخول أدمن
           </h1>
           <div class="columns is-centered">
             <div class="column is-5-tablet is-4-desktop is-3-widescreen">
@@ -45,12 +45,6 @@
                   </button>
                 </div>
               </form>
-              <router-link
-                class="link text-center fw-bold"
-                aria-current="page"
-                to="/register"
-                >عمل حساب مستشفى جديده</router-link
-              >
             </div>
           </div>
         </div>
@@ -64,17 +58,17 @@ import { useAuthStore } from "@/stores/auth";
 import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 
-const email = ref<string>("a@a.com");
-const password = ref<string>("a@a.com");
+const email = ref<string>("admin@admin.com");
+const password = ref<string>("admin@admin.com");
 
 const router = useRouter();
 const auth = useAuthStore();
 
 function loginUser() {
-  auth.login(email.value, password.value);
+  auth.adminLogin(email.value, password.value);
   email.value = "";
   password.value = "";
 
-  router.push("/dashborad");
+  router.push("/admin-dashborad");
 }
 </script>

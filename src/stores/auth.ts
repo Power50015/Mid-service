@@ -39,29 +39,46 @@ const unsub = await onAuthStateChanged(auth, async (user) => {
       where("email", "==", user.email)
     );
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      auth.userId = doc.id;
-      auth.isLogin = true;
-      auth.name = doc.data().name;
-      auth.email = doc.data().email;
-      auth.map = doc.data().map;
-      auth.address = doc.data().address;
-      auth.area = doc.data().area;
-      auth.image = doc.data().image;
-      auth.nurseries = doc.data().nurseries;
-      auth.isolation = doc.data().isolation;
-      auth.room = doc.data().room;
-      auth.intensive = doc.data().intensive;
-      auth.apositive = doc.data().apositive;
-      auth.anegative = doc.data().anegative;
-      auth.bpositive = doc.data().bpositive;
-      auth.bnegative = doc.data().bnegative;
-      auth.abpositive = doc.data().abpositive;
-      auth.abnegative = doc.data().abnegative;
-      auth.opositive = doc.data().opositive;
-      auth.onegative = doc.data().onegative;
-    });
-    auth.featchReservations();
+    if (querySnapshot.empty) {
+      const q = query(
+        collection(db, "admin"),
+        where("email", "==", user.email)
+      );
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        auth.userId = doc.id;
+        auth.isLogin = true;
+        auth.name = doc.data().name;
+        auth.email = doc.data().email;
+        auth.type = "admin";
+      });
+    } else {
+      querySnapshot.forEach((doc) => {
+        auth.userId = doc.id;
+        auth.isLogin = true;
+        auth.name = doc.data().name;
+        auth.email = doc.data().email;
+        auth.map = doc.data().map;
+        auth.address = doc.data().address;
+        auth.area = doc.data().area;
+        auth.image = doc.data().image;
+        auth.nurseries = doc.data().nurseries;
+        auth.isolation = doc.data().isolation;
+        auth.room = doc.data().room;
+        auth.intensive = doc.data().intensive;
+        auth.apositive = doc.data().apositive;
+        auth.anegative = doc.data().anegative;
+        auth.bpositive = doc.data().bpositive;
+        auth.bnegative = doc.data().bnegative;
+        auth.abpositive = doc.data().abpositive;
+        auth.abnegative = doc.data().abnegative;
+        auth.opositive = doc.data().opositive;
+        auth.onegative = doc.data().onegative;
+        auth.type = "hospitals";
+      });
+      auth.featchReservations();
+    }
   }
   unsub();
 });
@@ -90,6 +107,7 @@ export const useAuthStore = defineStore({
     opositive: 0,
     onegative: 0,
     reservations: [],
+    type: "",
   }),
   actions: {
     addHostpital(
@@ -155,6 +173,49 @@ export const useAuthStore = defineStore({
           console.log(errorMessage);
         });
     },
+    adminAddHostpital(
+      name: string,
+      address: string,
+      map: string,
+      area: string,
+      email: string,
+      password: string,
+      image: string
+    ) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // Add a new document in collection "hospitals"
+          addDoc(collection(db, "hospitals"), {
+            name: name,
+            email: email,
+            address: address,
+            map: map,
+            area: area,
+            image: image,
+            nurseries: 0,
+            isolation: 0,
+            room: 0,
+            intensive: 0,
+            apositive: 0,
+            anegative: 0,
+            bpositive: 0,
+            bnegative: 0,
+            abpositive: 0,
+            abnegative: 0,
+            opositive: 0,
+            onegative: 0,
+          }).then((user) => {
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+        });
+    },
     login(email: string, password: string) {
       signInWithEmailAndPassword(auth, email, password)
         .then(async () => {
@@ -183,6 +244,28 @@ export const useAuthStore = defineStore({
             this.opositive = doc.data().opositive;
             this.onegative = doc.data().onegative;
             this.userId = doc.id;
+            this.type = "hospitals";
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+        });
+    },
+    adminLogin(email: string, password: string) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async () => {
+          const q = query(collection(db, "admin"), where("email", "==", email));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            this.isLogin = true;
+            this.name = doc.data().name;
+            this.email = doc.data().email;
+            this.userId = doc.id;
+            this.type = "admin";
+
           });
         })
         .catch((error) => {
@@ -212,6 +295,7 @@ export const useAuthStore = defineStore({
         this.abnegative = 0;
         this.opositive = 0;
         this.onegative = 0;
+        this.type = "";
       });
     },
     async editData(obj: any) {

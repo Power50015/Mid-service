@@ -13,11 +13,16 @@
         class="navbar-item"
         aria-current="page"
         to="/dashborad"
-        v-if="auth.isLogin"
+        v-if="auth.type  == 'hospitals'"
       >
         <img src="@/assets/logo.png" width="70" height="28" />
       </router-link>
-
+      <img
+        src="@/assets/logo.png"
+        width="70"
+        height="28"
+        v-if="auth.type == 'admin'"
+      />
       <a
         role="button"
         class="navbar-burger"
@@ -37,24 +42,23 @@
           class="navbar-item"
           aria-current="page"
           to="/dashborad"
-          v-if="auth.isLogin"
+          v-if="auth.type  == 'hospitals'"
           >الخدمات</router-link
         >
         <router-link
           class="navbar-item"
           aria-current="page"
           to="/blood"
-          v-if="auth.isLogin"
+          v-if="auth.type  == 'hospitals'"
           >فصائل الدم</router-link
         >
         <router-link
           class="navbar-item"
           aria-current="page"
           to="/reservation"
-          v-if="auth.isLogin"
+          v-if="auth.type  == 'hospitals'"
           >الحجوزات</router-link
         >
-        
       </div>
 
       <div class="navbar-end">
@@ -79,25 +83,25 @@
             </button>
           </div>
         </div> -->
-        
+
         <div class="navbar-item">
           <router-link
             class="navbar-item"
             aria-current="page"
             to="/profile"
-            v-if="auth.isLogin"
+            v-if="auth.type  == 'hospitals'"
           >
             <img :src="auth.image" class="nav-profile-image" />
             <span>{{ auth.name }}</span>
           </router-link>
           <button
-              class="nav-link mx-4 button is-primary navbar-item"
-              aria-current="page"
-              v-if="auth.isLogin"
-              @click="auth.logout"
-            >
-              <strong>تسجيل خروج</strong>
-            </button>
+            class="nav-link mx-4 button is-primary navbar-item"
+            aria-current="page"
+            v-if="auth.isLogin"
+            @click="logout()"
+          >
+            <strong>تسجيل خروج</strong>
+          </button>
           <div class="buttons">
             <router-link
               class="nav-link mx-4 button is-primary"
@@ -123,7 +127,16 @@
 <script lang="ts" setup>
 import type { HtmlHTMLAttributes } from "@vue/runtime-dom";
 import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
+
 const auth = useAuthStore();
+const router = useRouter();
+
+function logout() {
+  auth.logout();
+  router.push("/");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(
