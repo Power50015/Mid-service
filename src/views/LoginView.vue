@@ -64,8 +64,8 @@ import { useAuthStore } from "@/stores/auth";
 import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 
-const email = ref<string>("a@a.com");
-const password = ref<string>("a@a.com");
+const email = ref<string>("elhamed@gmail.com");
+const password = ref<string>("elhamed@gmail.com");
 
 const router = useRouter();
 const auth = useAuthStore();
