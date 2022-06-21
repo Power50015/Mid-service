@@ -7,6 +7,7 @@
           <th>اليوم - شهر تاريخ الحضور</th>
           <th>اليوم - شهر تاريخ الخروج</th>
           <th>نوع الخدمه</th>
+          <th>إجمالى السعر</th>
           <th>اتمام الحضور</th>
         </tr>
       </thead>
@@ -39,6 +40,7 @@
           <td>{{ reservation.day }} - {{ reservation.month }}</td>
           <td>{{ reservation.endDay }} - {{ reservation.endMonth }}</td>
           <td>{{ service(reservation.service) }}</td>
+          <td>{{ reservation.totalPrice }}</td>
           <td v-if="reservation.state == 0">
             <button class="button is-primary" @click="edit(reservation.id)">
               أتمام الحضور
